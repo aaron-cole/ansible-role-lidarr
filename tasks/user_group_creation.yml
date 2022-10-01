@@ -1,0 +1,24 @@
+---
+# user group tasks for lidarr
+
+# User Group Creation
+- name: Create group for lidarr if defined
+  group:
+    name: "{{ lidarr_group }}"
+    gid: "{{ lidarr_group_gid | default(omit) }}"
+    state: present
+    system: yes
+  when: lidarr_group is defined
+
+# Create our user we will use
+- name: Create lidarr user
+  user:
+    name: "{{ lidarr_user }}"
+    state: present
+    shell: /sbin/nologin
+    group: "{{ lidarr_group }}"
+    system: yes
+    home: "{{ lidarr_base_install_dir }}/lidarr"
+    comment: "lidarr service account"
+    uid: "{{ lidarr_uid | default(omit) }}"
+    create_home: no

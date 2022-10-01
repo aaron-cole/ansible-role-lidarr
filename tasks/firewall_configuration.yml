@@ -1,0 +1,9 @@
+---
+# tasks file for firewall creation
+
+- name: Configure firewalld
+  firewalld:
+    port: "{{ lidarr_port }}/tcp"
+    permanent: yes
+    state: enabled
+    immediate: yes

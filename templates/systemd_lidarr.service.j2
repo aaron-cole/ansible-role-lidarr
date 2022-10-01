@@ -1,0 +1,18 @@
+#
+# Systemd unit file for lidarr
+#
+
+[Unit]
+Description=lidarr Daemon
+
+[Service]
+Type=simple
+User={{ lidarr_user }}
+Group={{ lidarr_group }}
+ExecStart={{ lidarr_base_install_dir }}/Lidarr/Lidarr /data={{ lidarr_config_dir }}
+Restart=always
+RestartSec=15
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target

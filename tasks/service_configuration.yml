@@ -1,0 +1,16 @@
+---
+# tasks file for service configuration
+- name: Copy Systemd service template
+  template:
+    src: systemd_lidarr.service.j2
+    dest: /etc/systemd/system/lidarr.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start lidarr service
+  systemd:
+    state: started
+    enabled: yes
+    name: lidarr.service
+    daemon_reload: yes

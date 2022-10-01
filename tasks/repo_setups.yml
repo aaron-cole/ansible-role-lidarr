@@ -1,0 +1,25 @@
+---
+# tasks file for repo configurations
+# EPEL
+# Add EPEL GPG key
+# Add EPEL repo
+- name: For RHEL Servers
+  block:
+  - name: Add EPEL RPM key
+    rpm_key:
+      state: present
+      key: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ ansible_facts['distribution_major_version'] }}"
+
+  - name: Add EPEL Repository
+    yum:
+      name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_facts['distribution_major_version'] }}.noarch.rpm"
+      state: present
+
+  when: ansible_distribution == 'RedHat'
+
+# NON RHEL servers can just install this package
+- name: Install native epel-release rpm  Non-RHEL Servers
+  yum:
+    name: epel-release
+    state: present
+  when: ansible_distribution != 'RedHat'

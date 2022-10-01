@@ -1,0 +1,28 @@
+---
+# tasks file for lidarr
+
+# Better safe than sorry
+- name: Gather Package Facts
+  package_facts:
+    manager: auto
+
+- name: User Group Creation tasks
+  include_tasks: "user_group_creation.yml"
+
+- name: Repository setup configuration
+  include_tasks: "repo_setups.yml"
+
+- name: Install packages
+  include_tasks: "install_packages.yml"
+
+- name: lidarr Configuration
+  include_tasks: "app_configuration.yml"
+
+- name: fapolicyd tasks
+  include_tasks: "fapolicyd_configuration.yml"
+
+- name: firewall tasks
+  include_tasks: "firewall_configuration.yml"
+
+- name: Service Configuration Tasks
+  include_tasks: "service_configuration.yml"

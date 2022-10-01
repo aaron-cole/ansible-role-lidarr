@@ -1,0 +1,12 @@
+---
+# tasks for fapolicyd configuration
+- name: Trust lidarr
+  shell: "fapolicyd-cli --file add {{ lidarr_base_install_dir }}/Lidarr --trust-file lidarr"
+  changed_when: false
+  failed_when: false
+  notify: fapolicyd update
+  when: "'fapolicyd' in ansible_facts['packages']"
+
+# Gotta flush handlers to make sure fapolicyd gets updated
+- name: Flush handlers to make Sabnzbd work with fapolicy
+  meta: flush_handlers

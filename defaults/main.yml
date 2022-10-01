@@ -1,0 +1,16 @@
+---
+# defaults file for lidarr
+
+lidarr_user: lidarr
+# lidarr_uid:
+lidarr_group: media
+# lidarr_group_gid:
+lidarr_base_install_dir: /opt
+lidarr_config_dir: /opt/data/lidarr
+lidarr_download_url: "https://lidarr.servarr.com/v1/update/master/updatefile?os=linux&runtime=netcore&arch=x64"
+lidarr_port: 8686
+lidarr_packages:
+ - curl
+ - sqlite
+ - libchromaprint
+ - mediainfo

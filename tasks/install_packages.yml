@@ -1,0 +1,9 @@
+---
+# tasks file for package installation
+
+- name: Install required packages
+  yum:
+    name: "{{ lidarr_packages }}"
+    state: present
+
+#may need to add at sometime https://github.com/acoustid/chromaprint/releases and fpcalc

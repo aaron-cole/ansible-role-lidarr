@@ -1,0 +1,39 @@
+---
+# tasks file for app configuration
+
+# Setup lidarr
+- name: Download lidarr tarball
+  get_url:
+    url:  "{{ lidarr_download_url }}"
+    dest: /tmp
+  register: lidarr_tarball
+
+# Untar
+- name: Extract lidarr tarball
+  unarchive:
+    src: "{{ lidarr_tarball['dest'] }}"
+    dest: "{{ lidarr_base_install_dir }}"
+    owner: "{{ lidarr_user }}"
+    group: "{{ lidarr_group }}"
+    remote_src: yes
+
+- name: Set File perms on lidarr dir
+  file:
+    path: "{{ lidarr_base_install_dir }}/Lidarr"
+    owner: "{{ lidarr_user }}"
+    group: "{{ lidarr_group }}"
+    recurse: yes
+
+# Ensure data dir exists
+- name: Create data directory
+  file:
+    path: "{{ lidarr_config_dir }}"
+    owner: "{{ lidarr_user }}"
+    group: "{{ lidarr_group }}"
+    state: directory
+
+# Remove tarball from /tmp
+- name: Remove tarball from download
+  file:
+    path: "{{ lidarr_tarball['dest'] }}"
+    state: absent
